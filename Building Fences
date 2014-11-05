@@ -1,0 +1,37 @@
+import kareltherobot.*;
+import java.awt.Color;
+public class BuidlingFences extends UrRobot
+    
+{
+   //instance data variables go here.
+    
+    public BuildingFences (int beeperLocation, int fenceLength, int fenceHeight int numBeepers)
+    {
+        super (beeperLocation, fenceLength, fenceHeight, numBeepers);
+    }
+    
+    public void run()
+    {
+        public class turnRight() {
+            karel.turnLeft();
+            karel.turnLeft();
+            karel.turnLeft();
+        }    
+        public class moveFive()  {
+            karel.turnLeft();
+            karel.move();
+            karel.move();
+            karel.move();
+            karel.move();
+            
+        }
+        public class pickBeep() {
+            while(Karel.nextToABeeper()) {
+                Karel.pickBeeper()
+            }
+        }
+        public class findWall() {
+            
+        }
+   }
+}
