@@ -1,0 +1,84 @@
+import kareltherobot.*;
+// library that holds all karel functions
+import java.awt.Color;
+
+public class DangerousTaskDriver implements Directions
+{
+    public static void main(String args[])  {
+        Robot karel = new DangerousTask(5, 5, North, 0);  
+        karel.run();
+        karel.turnOff();  
+    } 
+
+    static {
+        int beepers = (int)(Math.random() * 10); //random beepers on corner Karel currently standing
+        World.reset(); 
+        World.readWorld("worlds/fig6-17.kwld"); 
+        World.placeBeepers(5,5,beepers);
+        // everything that is called is static becuase it is called at a world level
+        if (beepers % 2 == 0) {
+            World.placeBeepers(5,6,(int)(Math.random() * 50));
+            World.placeBeepers(5,4, -1);
+        }
+        else {
+            World.placeBeepers(5,6,-1);
+            World.placeBeepers(5,4, (int)(Math.random() * 50)); 
+        }
+        World.setBeeperColor(Color.black);
+        World.setStreetColor(Color.gray);
+        World.setNeutroniumColor(Color.black);
+        World.setDelay(10);  
+        World.setVisible(true);
+    }
+}
+
+
+#######################################
+
+
+import kareltherobot.*;
+public class DangerousTask extends Robot
+{
+   //instance data variables go here.
+   int i;
+   int j;
+    public DangerousTask (int st, int av, Direction dir, int numBeepers)
+    {
+        super (st, av, dir, numBeepers);
+    }
+    public void run()
+    {
+        while (nextToABeeper() == true) {
+            i++;
+            pickBeeper();
+        }
+        if (i%2 == 0) {
+            east(); }
+        else {
+            west(); }
+    }
+    private void west()
+    {
+        turnLeft();
+        move();
+        finish();
+    }
+    private void east()
+    {
+        turnRight();
+        move();
+        finish();
+    }
+    private void turnRight()
+    {
+        for (j = 0; j != 3; j++) {
+            turnLeft();
+        }
+    }
+    private void finish() 
+    {
+        while (nextToABeeper()==true) {
+            pickBeeper();
+        }
+    }
+}
