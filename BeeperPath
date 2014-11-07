@@ -37,6 +37,8 @@ public class BeeperPathDriver implements Directions
 
 ###########################################
 
+
+
 import kareltherobot.*;
 import java.awt.Color;
 public class BeeperPath extends Robot
@@ -50,12 +52,18 @@ public class BeeperPath extends Robot
        super (st, av, dir, numBeepers);
     }
     
-   //public void run()
-    //{
-        //followPath();
+   public void run()
+    {
+        followPath();
     }
-  // public void followPath() {
-
-
-
-
+   public void followPath() {
+       karel.move();
+       while(karel.nextToABeeper()) {
+            karel.pickBeeper();
+            karel.move();
+       }
+        if(!karel.nextToABeeper()) {
+            
+       }
+   }    
+}
