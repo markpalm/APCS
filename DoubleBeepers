@@ -1,0 +1,78 @@
+/**
+   @Author:
+      Date:
+   Teacher: Boyko
+  */
+import kareltherobot.*;
+import java.awt.Color;
+
+public class DoubleBeepersDriver implements Directions
+{
+    public static void main(String args[])  {
+        DoubleBeepers karel = new DoubleBeepers(1, 1, East, -1);  
+        karel.run();
+        karel.turnOff();  
+    } 
+
+    static {
+        World.reset();
+        World.setSize(3,4);
+        World.placeBeepers(1,2,(int)(Math.random() * 50));
+        World.setBeeperColor(Color.black);
+        World.setStreetColor(Color.gray);
+        World.setNeutroniumColor(Color.black);
+        World.setDelay(10);  
+        World.setVisible(true);
+    }
+}
+
+
+##########################
+
+
+/* 
+ * @author Boyko
+ * @version (a version number or a date)
+ */
+import kareltherobot.*;
+public class DoubleBeepers extends Robot
+    
+{
+   //instance data variables go here.
+   private int numberOfBeepers = 0;
+   public DoubleBeepers (int st, int av, Direction dir, int numBeepers)
+   {
+       super (st, av, dir, numBeepers);
+   }
+   public void run()
+   {
+      move();
+      pickUpBeepers();
+      for (int i = 0; i < numberOfBeepers * 2; i++){
+          putBeeper();
+      }
+      returnToOrigin();
+   }
+   public void pickUpBeepers(){
+       while (nextToABeeper() == true){
+           pickBeeper();
+           numberOfBeepers++;
+       }
+    }
+   public void returnToOrigin(){
+       while (facingNorth() == false){
+           turnLeft();
+       }
+       turnLeft();
+       while (frontIsClear() == true){
+           move();
+       }
+       turnLeft();
+       while (frontIsClear() == true){
+           move();
+       }
+       while (facingNorth() == false){
+           turnLeft();
+       }
+   }
+}
