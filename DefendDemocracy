@@ -1,0 +1,81 @@
+/**
+   @Author:
+      Date:
+   Teacher: Boyko
+  */
+import kareltherobot.*;
+import java.awt.Color;
+
+public class DefendDemocracyDriver implements Directions
+{
+    public static void main(String args[])  {
+        DefendDemocracy karel = new DefendDemocracy(3, 1, East, 0);  
+        karel.run();
+        karel.turnOff();  
+    } 
+
+    static {
+        World.reset(); 
+        World.readWorld("worlds/hangingchad.kwld"); 
+        World.setBeeperColor(Color.black);
+        World.setStreetColor(Color.gray);
+        World.setNeutroniumColor(Color.black);
+        World.setDelay(10);  
+        World.setVisible(true);
+    }
+}
+
+
+
+
+
+#############################
+
+
+
+/* 
+ * @author Boyko
+ * @version (a version number or a date)
+ */
+import kareltherobot.*;
+public class DefendDemocracy extends Robot
+    
+{
+   //instance data variables go here.
+   private int numberOfBeepers = 0;
+   public DefendDemocracy (int st, int av, Direction dir, int numBeepers)
+   {
+       super (st, av, dir, numBeepers);
+   }
+   public void run()
+   {
+      for (int i = 0; i < 5; i++){
+          move();
+          checkBeepers();
+          move();
+      }
+   }
+   public void checkBeepers(){
+       if (nextToABeeper() == true){
+           pickBeeper();
+           while (facingNorth() == false){
+               turnLeft();
+           }
+           move();
+           pickBeeper();
+           turnAround();
+           move();
+           move();
+           pickBeeper();
+           turnAround();
+           move();
+           while (facingEast() == false){
+               turnLeft();
+           }
+       }
+   }
+   public void turnAround(){
+       turnLeft();
+       turnLeft();
+   }
+}
