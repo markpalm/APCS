@@ -1,0 +1,71 @@
+package busStation;
+public class BusStation
+{
+    
+     ///just a container for a book object
+    private Book myBook1; 
+    private Book myBook2;
+    
+    public Library()
+    {
+        //since myBook1 is a member variable it has access to all the methods and functions of Book
+    myBook1 = new Book();
+    myBook2 = new Book();
+    }
+    
+    //load the book with info 
+    public void addBooks()
+    {
+        myBook1.setAuthor("Ms. Boyko");
+        myBook1.setName("AP CS");
+        
+        myBook2.setAuthor("Obama");
+        myBook2.setName("My Country");
+    }
+    //print the book
+    public void printBooks()
+    {
+        System.out.println("My books are:");
+        System.out.println(myBook1.getName() + " by " + myBook1.getAuthor());
+        System.out.println(myBook2.getName() + " by " + myBook2.getAuthor());
+    }
+}
+
+
+
+
+##############################################
+
+
+package busStation;
+public class Bus
+{
+    
+    private String name;
+    private String route;
+    
+    public Bus()
+    {
+        name = "";
+        route="";
+    }
+    
+    public String getName()
+    {
+        return name;        
+    }
+    public String getRoute()
+    {
+        return route;
+    }
+    public void setName(String myName)
+    {
+        name = myName;
+    }
+    
+    public void setRoute(String myRoute)
+    {
+        route = myRoute;
+    }
+    
+}
