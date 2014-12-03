@@ -1,0 +1,21 @@
+package array;
+import java.util.Scanner;
+
+public class reverseArray {
+
+	public static void main(String[] args) {
+		int Numbers = 0;
+		int Inputs = 0;
+		int[] numList;
+		Scanner myscanner = new Scanner(System.in);
+		// TODO Auto-generated method stub
+		System.out.println("how many numbers do you want to input?");
+		Inputs = myscanner.nextInt();
+		while(Inputs>=0)
+			System.out.println("Enter you numbers");
+			Numbers = myscanner.nextInt();
+			numList = new int[Numbers];
+			Inputs--;
+	}
+
+}
