@@ -1,0 +1,18 @@
+package array;
+import java.util.*;
+public class Duplicate {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		ArrayList <String> myArray = new ArrayList<String> ();
+		
+		for (int i = 0; i< myArray; i++)
+		{
+			System.out.println("Please enter a word for the Array");
+			String duplicate = scan.nextLine();
+			myArray.add(duplicate);
+			
+		}
+	}
+
+}
