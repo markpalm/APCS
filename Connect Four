@@ -1,0 +1,39 @@
+package ConnectFourPackage;
+import java.util.*;
+public class ConnectFour {
+Scanner scan = new Scanner(System.in);
+public int row = 6;
+public int column = 7;
+String[][]gameBoard = new String[row][column];
+public static void main(String[] args) {
+	ConnectFour game = new ConnectFour();
+	game.printBoard();
+	game.PlayConnectFour();
+}
+		public ConnectFour() {
+			for (int i = 0; i<row; i++) {
+				for (int x =0; x< column; x++) {
+					gameBoard[i][x]= "_ ";
+				}
+			}
+		}
+		public void printBoard() {
+		for(int i =0; i < row; i++){
+			for(int x = 0; x <column; x++){
+				System.out.print(gameBoard[i][x]);
+				}
+			System.out.println();
+			}
+		System.out.println("0 1 2 3 4 5 6");
+		}
+
+		
+	public boolean PlayConnectFour() {
+		System.out.println("Would you like to play Connect Four? (y / n)");
+		String start = scan.nextLine();
+		if (start.equals("y")||start.equals("Y"))
+			return true;
+		else
+			return false;
+		}
+	}
