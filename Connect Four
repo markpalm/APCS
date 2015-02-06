@@ -5,17 +5,18 @@ Scanner scan = new Scanner(System.in); //sets up the scanner system
 public int row = 6;
 public int column = 7;
 public int playerTrack = 1;
-public String p1 = "Player 1";
-public String p2 = "Player 2";
 public int pos = 0;
-boolean shala = true;
+boolean run = true;
 String[][]gameBoard = new String[row][column]; // creates a 2d array that takes in the rows and columns
 public static void main(String[] args) {
 	ConnectFour game = new ConnectFour();
 	game.printBoard();
 	game.PlayConnectFour();
 	game.dropper();
+	game.getWin();
 }
+
+
 		public ConnectFour() {
 			for (int i = 0; i<row; i++) { //counts the rows but does not print them
 				for (int x =0; x< column; x++) { // same thing as the rows but with columns
@@ -40,17 +41,59 @@ public static void main(String[] args) {
 		if (start.equals("y")||start.equals("Y")) //boolean logic or that checks for upper or lowercase
 			dropper();
 		else
-			shala = false;
-		}
-		
+			run   = false;
+		}	
 	public void dropper() {
-		while(shala == true) {
+		while(run == true) { //runs the game until you tell it to stop
 		System.out.println("Which column would"+ playerTrack +  "like to play in? (0-6)");
-		int choice = scan.nextInt();
+		String choice = scan.nextLine();
 		System.out.println(choice);
-		
-		
-		
+		for(int y = row -1; y>=0;y--){
+			if (gameBoard[choice][y]== 0) //cant change this between int and string
+				return y; //same as this
+		}
+		}
+		}
+	int p(int y, int choice) { //checks to see if the choice is still in the board limits
+		return (Integer) ((y <0 || choice<0 || y>=row || choice>= column)?0:gameBoard[y][choice]);
 	}
-	}	
+	public int getWin() {
+		for(int y=0;y<row;y++) { //checks vertically
+			for(int choice =0;choice<column;choice++) {
+				if (p(y,choice) !=0 
+						&& p(y,choice) == p(y,choice+1) 
+						&& p(y,choice) == p(y,choice+2) 
+						&& p(y,choice) == p(y,choice+3))
+					return p(y,choice);
+				return -1;
+				for(int y=0;y<row;y++) { //checks horizontally
+				for(int choice =0;choice<column;choice++) {
+					if (p(y,choice) !=0 
+							&& p(y,choice) == p(y+1,choice) 
+							&& p(y,choice) == p(y+2,choice) 
+							&& p(y,choice) == p(y+3,choice))
+						return p(y,choice);
+					for(int y=0;y<row;y++) { //checks diagonally
+						for(int choice =0;choice<column;choice++) {
+						for(int d =-1;d<=1;d+=2){
+							if (p(y,choice) !=0 
+									&& p(y,choice) == p(y+1*d,choice+1) 
+									&& p(y,choice) == p(y+2*d,choice+2) 
+									&& p(y,choice) == p(y+3*d,choice+3))
+								return p(y,choice);
+							for(int y=0;y<row;y++) { 
+								for(int choice =0;choice<column;choice++) {
+									if(p(y,choice) ==0)
+										return 0;
+
+			}
+		}
 	}
+		}
+}
+			}
+		}
+	}
+	}
+	}
+}
