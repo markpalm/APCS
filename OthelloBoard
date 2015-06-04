@@ -1,0 +1,27 @@
+import java.ArrayList;
+import java.List;
+
+public Othello(int width, int height) {
+  this.board = new Board(width, height);
+    checkState();
+ }
+
+ 
+ public Othello(int width, int height, String situation) {
+  this.board = new Board(width, height, situation);
+    checkState();
+ }
+
+private void checkState() {
+  if (!isMovePossible(Field.BLACK)) {
+    if (!isMovePossible(Field.WHITE)) {
+
+ this.isRunning = false;
+ } 
+ else {
+  this.currentPlayer = Field.WHITE;
+    }
+  }
+}
+public currentPlayer() {
+  
