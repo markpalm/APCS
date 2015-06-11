@@ -1,27 +1,152 @@
-import java.ArrayList;
-import java.List;
+package OthelloPackage;
+import java.io.*;
+import java.util.ArrayList;
 
-public Othello(int width, int height) {
-  this.board = new Board(width, height);
-    checkState();
- }
-
- 
- public Othello(int width, int height, String situation) {
-  this.board = new Board(width, height, situation);
-    checkState();
- }
-
-private void checkState() {
-  if (!isMovePossible(Field.BLACK)) {
-    if (!isMovePossible(Field.WHITE)) {
-
- this.isRunning = false;
- } 
- else {
-  this.currentPlayer = Field.WHITE;
-    }
-  }
+public class Othello {
+	public static void main(String[] args) throws Exception {
+// creates an 8x8 board
+char [] [] board = new char[20] [20];
+for(int y = 0; y < 10; y++) {
+	for (int x=0; x<10; x++) {
+		board [y] [x] = '-' ;
+	}
 }
-public currentPlayer() {
-  
+board[4] [4] = 'O';
+board[4] [5] = 'X';
+board[5] [4] = 'X';
+board[5] [5] = 'O';
+
+char currentPlayer = 'X';
+	BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+while (true) {
+
+	System.out.println("ABCDEFGH");
+for (int y = 1; y < 9; y++) {
+	System.out.print(y);
+	for (int x = 1; x < 9; x++) {
+		System.out.print(board[y] [x]);
+}
+System.out.println();
+}
+//finds if moves are possible
+boolean legalMove = false;
+for (int y =1; y < 9; y++) {
+	for (int x = 1; x < 9; x++) {
+		legalMove = legalMove || (board[y] [x] == '-' && flip(x,y, board, currentPlayer, false));
+	}
+}
+if (! legalMove) {
+	break;
+}
+//computers turn
+while(currentPlayer == 'O') {
+	int move[] = ComputerMove(board);
+	int x = move[0];
+	int y = move[1];
+if (x < 1 || x >8 || y < 1 || y > 8 || board [y] [x] != '-') {
+	continue;
+}
+//check if valid for flip to human
+if (! flip(x, y, board, currentPlayer, true)) { 
+	continue;
+}
+	System.out.println("Computers move");
+	board[y] [x] = currentPlayer;
+	break;
+}
+//Switch players after each has made turn
+currentPlayer = currentPlayer == 'X' ? 'O' : 'X';
+}
+//Prints score
+int score = 0;
+for (int y = 1; y < 9; y++) {
+	for (int x = 1; x < 9; x ++) {
+		score += board[y] [x] == 'X' ? 1 : board[y] [x] == 'O' ? -1 : 0;
+	}
+}
+System.out.println(score == 0 ? "d" : score < 0 ? 'O' : 'X');
+}
+
+static boolean flip(int X, int Y, char[][] board, char player, boolean commitPutDown) {
+	boolean causesFlips = false;
+//determines the direction a peice can be placed down
+	for (int dY = -1; dY < 2; dY++) {
+		for (int dX = -1; dX < 2; dX++) {
+			if (dY == 0 && dX == 0) {
+				continue;
+}
+// flips the pieces inbetween
+int distance = 0;
+do { 
+	distance++; 
+}
+while ( board[Y + distance * dY][X + distance * dX] == (player == 'X' ? 'O' : 'X'));
+	if (board[Y + distance * dY][X + distance * dX] == player && distance > 1) {
+		causesFlips = true;
+		if (commitPutDown) {
+			for (int distance2 = 1; distance2 < distance; distance2++) {
+				board[Y + distance2 * dY][X + distance2 * dX] = player;
+				} 
+			}
+		}
+	}
+}
+return causesFlips;
+}
+static int[] ComputerMove(char[][] board) {
+	ArrayList<Integer> poss_x_values = new ArrayList<Integer>();
+	ArrayList<Integer> poss_y_values = new ArrayList<Integer>();
+	for(int i = 1; i < 8; i++) {
+		for(int j =1; j < 8; j ++) {
+			if (check(i, j, board, 'O') == true) {
+				poss_x_values.add(i);
+				poss_y_values.add(j);
+		}
+	}
+}
+
+int x = 0;
+int y = 0;
+int i = 0;
+
+boolean check = false;
+while(check == false) {
+	x= poss_x_values.remove(i);
+	y= poss_y_values.remove(i);
+	if (x < 1 || x > 8 || y < 1 || y > 8 || board[y][x] != '-' == false) {
+		check = true;
+}
+i ++;
+}
+int x_value = x;
+	int y_value = y;
+	int [] solution = new int [2];
+	solution [0] = x_value;
+	solution [1] = y_value; 
+	while (poss_x_values.size() > 0 )
+{
+	poss_x_values.remove(0);
+	poss_y_values.remove(0);
+	}
+	return solution;
+}
+// similar to flip, returns all locations that would result in a flip or any location that is a valid move
+
+static boolean check (int pieceX, int pieceY, char [][] test, char playerColor) { 
+	boolean causesFlips = false;
+	for (int dY = -1; dY < 2; dY++) { for  (int dX = -1; dX < 2; dX++) {
+		if (dY == 0 && dX == 0) { continue; }
+		int distance = 0;
+	do {
+		distance++;
+	} 
+	while (test[pieceY + distance * dY][pieceX + distance * dX] == (playerColor == 'X' ? 'O' : 'X'));
+		if (test[pieceY + distance * dY][pieceX + distance * dX] == playerColor && distance > 1) {
+			causesFlips = true;
+		}
+	}
+}
+return causesFlips;
+	}
+}
+
